@@ -9,15 +9,15 @@ print("Number of iterations: {}".format(it))
 
 def mandelbrot(field, it):
     print("Initializing Mandelbrot algorithm...")
-    z = np.zeros_like(field).astype('complex')
-    mb = np.zeros_like(field)
+    z = np.zeros_like(field, dtype='complex')
+    mb = np.zeros_like(field, dtype='int')
     print("Iterating...")
     for i in range(it):
         print("{}/{}:".format(i, it), end=' ')
         z = z**2 + field
         mb += (np.real(z)**2 + np.imag(z)**2 <= 4)
         print("Done", end='\r')
-    return mb.astype('int')
+    return mb 
 
 print("Creating linspaces...", end=' ')
 x = np.linspace(-2, 2, num=lsnum)
