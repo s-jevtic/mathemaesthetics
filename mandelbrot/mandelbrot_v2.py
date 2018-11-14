@@ -6,6 +6,9 @@ lsnum = 10000 #number of steps
 print("Array size: {0}x{0}".format(lsnum))
 it = 100 #number of iterations
 print("Number of iterations: {}".format(it))
+xrange = [-2, 2]
+yrange = [-2, 2]
+
 
 def mandelbrot(field, it):
     print("Initializing Mandelbrot algorithm...")
@@ -20,8 +23,8 @@ def mandelbrot(field, it):
     return mb 
 
 print("Creating linspaces...", end=' ')
-x = np.linspace(-2, 2, num=lsnum)
-y = np.linspace(-2, 2, num=lsnum)
+x = np.linspace(xrange[0], xrange[1], num=lsnum)
+y = np.linspace(yrange[0], yrange[1], num=lsnum)
 print("Done")
 
 print("Creating meshgrid...", end=' ')
