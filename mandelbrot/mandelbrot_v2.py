@@ -47,7 +47,7 @@ mb = np.ma.filled(mb) #unmasking the array to save it
 print("Done")
 
 print("Saving array...", end=' ')
-np.save("mbv2_i{0}_n{1}".format(it, lsnum), mb)
+np.save("./outfiles/mbv2_i{0}_n{1}".format(it, lsnum), mb)
 #skip this if you don't want to save the array
 print("Done")
 
