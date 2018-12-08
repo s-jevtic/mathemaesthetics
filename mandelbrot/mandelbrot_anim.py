@@ -13,7 +13,7 @@ lsnum = 500 #number of steps
 cprint(1, "Array size: {0}x{0}".format(lsnum))
 it = 100 #number of iterations
 cprint(1, "Number of iterations: {}".format(it))
-fnum = 1200 #number of frames
+fnum = 1000 #number of frames
 cprint(1, "Number of frames: {}".format(fnum))
 xrange = [-3, 3]
 yrange = [-2, 4]
@@ -42,14 +42,16 @@ def mandelbrot(field, it):
     return mb 
 
 frames = []
-f = plt.figure(frameon=False)
+f = plt.figure(frameon=False, figsize=(5,5))
+f.set_clip_on(False)
 plt.set_cmap('magma')
 plt.axis('off')
+plt.tight_layout()
+plt.box(False)
 
 cprint(1, "Creating frames...")
 for i in range(fnum):
-    cprint(1, "{}/{}:".format(i, fnum), end=' ')
-    xrange, yrange = zoom(1.03725, xrange, yrange)
+    cprint(1, "{}/{}:".format(i+1, fnum), end=' ')
     cprint(2, "Creating linspaces...", end=' ')
     x = np.linspace(xrange[0], xrange[1], num=lsnum)
     y = np.linspace(yrange[0], yrange[1], num=lsnum)
@@ -68,7 +70,7 @@ for i in range(fnum):
     #masking the array because logarithms are undefined for 0
     cprint(2, "Masked array done")
     cprint(2, "Creating the logarithmic array...", end=' ')
-    mb_log = np.log(mb) - 1 #I used logarithms for aesthetic purposes
+    #mb_log = np.log(mb) - 1 #I used logarithms for aesthetic purposes
     cprint(2, "Done")
     #cprint(2, "Unmasking array...", end=' ')
     #mb = np.ma.filled(mb) #unmasking the array to save it
@@ -76,9 +78,17 @@ for i in range(fnum):
     cprint(2, "Plotting the image...", end=' ')
     #plt.figure(frameon=False)
     #plt.axis('off')
-    frames.append([plt.imshow(mb, animated=True)])
+    frames.append([
+            plt.imshow(mb, animated=True, clip_on=False)
+            ])
+    f.subplots_adjust(left=0, right=1, bottom=0, top=1, hspace=0, wspace=0)
     cprint(2, "Done")
-    cprint(1, "Done", end= '\r')
-ani = animation.ArtistAnimation(f, frames, 33, repeat_delay=1000)
-#ani.save("./outfiles/mbanim_i{}_n{}_f{}_c{}.mp4")
+    xrange, yrange = zoom(1.03725, xrange, yrange)
+    cprint(1, "Done", end='\r')
+    
+ani = animation.ArtistAnimation(f, frames, interval=100/3, repeat_delay=1000)
+ani.save(
+        "./outfiles/mbanim_i{}_n{}_f{}_c{}.mp4".format(it, lsnum, fnum, center),
+        bitrate=1536, dpi=100
+        )
 plt.show()
