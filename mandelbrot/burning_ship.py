@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 print("Initializing burning ship set creator...")
-lsnum = 10000 #number of steps
+lsnum = 1000 #number of steps
 print("Array size: {0}x{0}".format(lsnum))
 it = 100 #number of iterations
 print("Number of iterations: {}".format(it))
@@ -57,6 +57,6 @@ plt.contourf(x, y, mb_log) #gives a contour plot on the (x, y) grid
 print("Done")
 print("Plotting the image...", end=' ')
 plt.figure(figsize=(5,5))
-plt.imshow(mb_log) #just plots the values
+plt.imshow(mb, cmap='magma') #just plots the values
 print("Done")
 plt.show()
