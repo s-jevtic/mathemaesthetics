@@ -27,6 +27,15 @@ def ogf(f, field):
     return _sum
 
 
+def dgf(f, field):
+    _sum = np.zeros_like(field)
+    for i in range(1, it):
+        _sum += f(i) / i**z
+        print(i, end='')
+        print('\r', end='')
+    return _sum
+
+
 def phi(n):
     gcds = np.array([math.gcd(n, i) for i in range(n)])
     return np.count_nonzero(gcds == 1)
@@ -66,7 +75,7 @@ def getRGBPhase(z):
     return colors.hsv_to_rgb(np.moveaxis(getHSVPhase(z), 0, 2))
 
 
-Z = ogf(phi, z)
+Z = dgf(phi, z)
 fig, [img, cnt, phs] = plt.subplots(nrows=3, figsize=(10, 20))
 
 img.imshow(getRGB(Z), origin='lower')
